@@ -1,4 +1,11 @@
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import Favorites from '../../pages/favorites/favorites';
 import Main from '../../pages/main/main';
+import Page404 from '../../pages/page-404/page-404';
+import Login from '../../pages/login/login';
+import PlaceCard from '../place-card/place-card';
+import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
   offersCount: number;
@@ -6,9 +13,25 @@ type AppProps = {
 
 function App({offersCount}: AppProps): JSX.Element {
   return (
-    <Main
-      offersCount={offersCount}
-    />
+    <BrowserRouter>
+      <Routes>
+        <Route path={AppRoute.Root} element={<Main offersCount={offersCount} />} />
+        <Route path={AppRoute.Login} element={<Login />} />
+        <Route
+          path={AppRoute.Favorites}
+          element={
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <Favorites />
+            </PrivateRoute>
+          }
+        />
+        <Route path={AppRoute.Offer}>
+          <Route path=':id' element={<PlaceCard />}/>
+        </Route>
+        <Route path={AppRoute.NotFoundScreen} element={<Page404 />}/>
+      </Routes>
+    </BrowserRouter>
+
   );
 }
 
