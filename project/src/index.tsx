@@ -1,8 +1,8 @@
+/* eslint-disable no-console */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-
-const OFFERS_COUNT = 5;
+import {offers} from './mocks/offers';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      offersCount={OFFERS_COUNT}
+      offers={offers}
     />
   </React.StrictMode>,
 );
