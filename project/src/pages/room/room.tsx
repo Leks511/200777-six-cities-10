@@ -65,7 +65,7 @@ const Room = ({offers}: RoomProps): JSX.Element => {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                images.slice(6).map((image: string) => (
+                images.slice(0, 6).map((image: string) => (
                   <div key={image} className="property__image-wrapper">
                     <img className="property__image" src={image} alt="studio" />
                   </div>
