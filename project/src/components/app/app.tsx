@@ -6,43 +6,41 @@ import Page404 from '../../pages/page-404/page-404';
 import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';
 import PrivateRoute from '../private-route/private-route';
+import {Offers} from '../../types/offer';
 
 type AppProps = {
-  offersCount: number;
+  offers: Offers;
 }
 
-function App({offersCount}: AppProps): JSX.Element {
-  return (
-    <BrowserRouter>
-      <Routes>
+const App = ({offers}: AppProps): JSX.Element => (
+  <BrowserRouter>
+    <Routes>
+      <Route
+        path={AppRoute.Root}
+        element={
+          <Main offers={offers} />
+        }
+      />
+      <Route path={AppRoute.Login} element={<Login />} />
+      <Route
+        path={AppRoute.Favorites}
+        element={
+          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <Favorites offers={offers} />
+          </PrivateRoute>
+        }
+      />
+      <Route path={AppRoute.Offer}>
         <Route
-          path={AppRoute.Root}
+          path=':id'
           element={
-            <Main offersCount={offersCount} />
+            <Room offers={offers} />
           }
         />
-        <Route path={AppRoute.Login} element={<Login />} />
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <Favorites />
-            </PrivateRoute>
-          }
-        />
-        <Route path={AppRoute.Offer}>
-          <Route
-            path=':id'
-            element={
-              <Room />
-            }
-          />
-        </Route>
-        <Route path={AppRoute.NotFoundScreen} element={<Page404 />}/>
-      </Routes>
-    </BrowserRouter>
-
-  );
-}
+      </Route>
+      <Route path={AppRoute.NotFoundScreen} element={<Page404 />}/>
+    </Routes>
+  </BrowserRouter>
+);
 
 export default App;
