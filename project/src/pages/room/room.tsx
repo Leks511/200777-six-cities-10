@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Offer, Offers } from '../../types/offer';
 import Rating from '../../components/rating/rating';
 import Page404 from '../page-404/page-404';
@@ -10,6 +11,8 @@ type RoomProps = {
 
 const Room = ({offers}: RoomProps): JSX.Element => {
   const {id} = useParams();
+  // eslint-disable-next-line no-console
+  useEffect(() => console.log('Hello'), []);
 
   if (!id) {
     return <Page404 />;
