@@ -6,15 +6,17 @@ import { AppRoute } from '../../const';
 
 type PlaceCardProps = {
   offerData: Offer,
-  onPlaceCardMouseEnter: (data: Offer) => void,
+  onPlacesListItemHover: (id: number) => void,
 };
 
-const PlaceCard = ({offerData, onPlaceCardMouseEnter}: PlaceCardProps): JSX.Element => {
+const PlaceCard = ({offerData, onPlacesListItemHover}: PlaceCardProps): JSX.Element => {
   const {previewImage, price, isFavorite, isPremium, rating, title, type, id} = offerData;
+
+  const placeCardMouseEnterHandler = () => onPlacesListItemHover(id);
 
   return (
     <article
-      onMouseEnter={() => onPlaceCardMouseEnter(offerData)}
+      onMouseEnter={placeCardMouseEnterHandler}
       className="cities__card place-card"
     >
       {isPremium && <PremiumMark />}

@@ -1,5 +1,5 @@
 import {Offers} from '../../types/offer';
-import Places from '../../components/places/places';
+import Cities from '../../components/cities/cities';
 
 type MainProps = {
   offers: Offers;
@@ -73,7 +73,7 @@ const Main = ({offers}: MainProps): JSX.Element => (
           </ul>
         </section>
       </div>
-      <Places offers={offers} />
+      <Cities offers={offers} />
     </main>
   </div>
 );
