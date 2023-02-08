@@ -7,23 +7,25 @@ import { AppRoute } from '../../const';
 type PlaceCardProps = {
   offerData: Offer,
   onPlacesListItemHover: (id: number) => void,
+  additionalClasses: {[key: string]: string}
 };
 
-const PlaceCard = ({offerData, onPlacesListItemHover}: PlaceCardProps): JSX.Element => {
+const PlaceCard = ({offerData, onPlacesListItemHover, additionalClasses}: PlaceCardProps): JSX.Element => {
   const {previewImage, price, isFavorite, isPremium, rating, title, type, id} = offerData;
+  const {articleClass, imgWrapperClass} = additionalClasses;
 
   const placeCardMouseEnterHandler = () => onPlacesListItemHover(id);
 
   return (
     <article
       onMouseEnter={placeCardMouseEnterHandler}
-      className="cities__card place-card"
+      className={`${articleClass} place-card`}
     >
       {isPremium && <PremiumMark />}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#todo">
+      <div className={`${imgWrapperClass} place-card__image-wrapper`}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
