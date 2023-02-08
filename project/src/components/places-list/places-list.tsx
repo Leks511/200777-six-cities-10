@@ -2,24 +2,32 @@ import {Offer, Offers} from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
 
 type PlacesListProps = {
-  offers: Offers,
-  onPlacesListItemHover: (id: number) => void,
+  offers: Offers;
+  onPlacesListItemHover: (id: number) => void;
+  additionalClasses: {[key: string]: string};
 };
 
-const PlacesList = ({offers, onPlacesListItemHover}: PlacesListProps): JSX.Element => (
-  <div className="cities__places-list places__list tabs__content">
-    {
-      offers.map((offer: Offer) =>
-        (
-          <PlaceCard
-            onPlacesListItemHover={onPlacesListItemHover}
-            key={offer.id}
-            offerData={offer}
-          />
+const PlacesList = ({offers, onPlacesListItemHover, additionalClasses}: PlacesListProps): JSX.Element => {
+  const {listClasses, articleClass, imgWrapperClass} = additionalClasses;
+  return (
+    <div className={`${listClasses} places__list`}>
+      {
+        offers.map((offer: Offer) =>
+          (
+            <PlaceCard
+              key={offer.id}
+              onPlacesListItemHover={onPlacesListItemHover}
+              offerData={offer}
+              additionalClasses={{
+                articleClass,
+                imgWrapperClass
+              }}
+            />
+          )
         )
-      )
-    }
-  </div>
-);
+      }
+    </div>
+  );
+};
 
 export default PlacesList;

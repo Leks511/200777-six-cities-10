@@ -1,35 +1,54 @@
 import {Offers} from '../../types/offer';
 import PlacesList from '../places-list/places-list';
+import PlacesFilter from '../places-filter/places-filter';
+import {PlacesRootComponent} from '../../const';
+
 
 type PlacesProps = {
   offers: Offers;
   onPlacesListItemHover: (id: number) => void;
+  rootComponent: string;
 }
 
-const Places = ({offers, onPlacesListItemHover}: PlacesProps): JSX.Element => (
-  <section className="cities__places places">
-    <h2 className="visually-hidden">Places</h2>
-    <b className="places__found">312 places to stay in Amsterdam</b>
-    <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0}>
-              Popular
-        <svg className="places__sorting-arrow" width="7" height="4">
-          <use xlinkHref="#icon-arrow-select"></use>
-        </svg>
-      </span>
-      <ul className="places__options places__options--custom places__options--opened">
-        <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-        <li className="places__option" tabIndex={0}>Price: low to high</li>
-        <li className="places__option" tabIndex={0}>Price: high to low</li>
-        <li className="places__option" tabIndex={0}>Top rated first</li>
-      </ul>
-    </form>
-    <PlacesList
-      offers={offers}
-      onPlacesListItemHover={onPlacesListItemHover}
-    />
-  </section>
-);
+const Places = ({offers, onPlacesListItemHover, rootComponent}: PlacesProps): JSX.Element => {
+  let placesComponent;
+  switch (rootComponent) {
+    case PlacesRootComponent.CITIES:
+      placesComponent = (
+        <section className="cities__places places">
+          <h2 className="visually-hidden">Places</h2>
+          <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+          <PlacesFilter />
+          <PlacesList
+            offers={offers}
+            onPlacesListItemHover={onPlacesListItemHover}
+            additionalClasses={{
+              listClasses: 'cities__places-list tabs__content',
+              articleClass: 'cities__card',
+              imgWrapperClass: 'cities__image-wrapper'
+            }}
+          />
+        </section>
+      );
+      break;
+    case PlacesRootComponent.ROOM:
+      placesComponent = (
+        <section className="near-places places">
+          <h2 className="near-places__title">Other places in the neighbourhood</h2>
+          <PlacesList
+            offers={offers}
+            onPlacesListItemHover={onPlacesListItemHover}
+            additionalClasses={{
+              listClasses: 'near-places__list',
+              articleClass: 'near-places__card',
+              imgWrapperClass: 'near-places__image-wrapper'
+            }}
+          />
+        </section>
+      );
+      break;
+  }
+  return <> {placesComponent} </>;
+};
 
 export default Places;

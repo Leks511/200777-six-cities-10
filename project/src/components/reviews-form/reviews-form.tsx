@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from 'react';
-import { ReviewFormData } from '../../types/review';
+import { Review } from '../../types/review';
 import StarInput from '../star-input/star-input';
 
 
-const ReviewForm = (): JSX.Element => {
+const ReviewsForm = (): JSX.Element => {
   const [reviewFormData, setReviewFormData] = useState({
     rating: 0,
     review: ''
@@ -18,7 +18,7 @@ const ReviewForm = (): JSX.Element => {
     'terribly',
   ];
 
-  const formDataChangeHandler = (newReviewData: ReviewFormData): void => {
+  const formDataChangeHandler = (newReviewData: Review): void => {
     setReviewFormData({
       ...reviewFormData,
       ...newReviewData
@@ -67,4 +67,4 @@ const ReviewForm = (): JSX.Element => {
   );
 };
 
-export default ReviewForm;
+export default ReviewsForm;

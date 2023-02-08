@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {Offers} from '../../types/offer';
 import Places from '../places/places';
 import Map from '../map/map';
+import {PlacesRootComponent} from '../../const';
 
 type CitiesProps = {
   offers: Offers;
@@ -18,11 +19,15 @@ const Cities = ({offers}: CitiesProps): JSX.Element => {
         <Places
           offers={offers}
           onPlacesListItemHover={onPlacesListItemHover}
+          rootComponent={PlacesRootComponent.CITIES}
         />
-        <Map
-          offers={offers}
-          selectedOfferId={selectedPlaceId}
-        />
+        <div className="cities__right-section">
+          <Map
+            offers={offers}
+            selectedOfferId={selectedPlaceId}
+            className="cities__map"
+          />
+        </div>
       </div>
     </div>
   );

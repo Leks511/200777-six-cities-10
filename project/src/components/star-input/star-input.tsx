@@ -1,12 +1,12 @@
 import { ChangeEvent } from 'react';
-import { ReviewFormData } from '../../types/review';
+import { Review } from '../../types/review';
 
 type StarInputProps = {
   isChecked: boolean,
   ratingTitle: string,
   ratingValue: number,
   ratingId: string,
-  starInputChange: (newReviewData: ReviewFormData) => void,
+  starInputChange: (newReviewData: Review) => void,
 };
 
 const StarInput = ({isChecked, ratingTitle, ratingValue, ratingId, starInputChange}: StarInputProps): JSX.Element => (
