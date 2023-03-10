@@ -24,7 +24,7 @@ export type Offer = {
   isFavorite: boolean,
   isPremium: boolean,
   rating: number,
-  type: 'house' | 'room' | 'hotel' | 'apartment',
+  type: string,
   bedrooms: number,
   maxAdults: number,
   price: number,

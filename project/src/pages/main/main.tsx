@@ -1,81 +1,71 @@
-import {Offers} from '../../types/offer';
+import { useState } from 'react';
+import CitiesEmpty from '../../components/cities-empty/cities-empty';
 import Cities from '../../components/cities/cities';
+import CityTabs from '../../components/city-tabs/city-tabs';
+import {cities} from '../../const';
+import { useAppSelector } from '../../hooks';
+import cn from 'classnames';
 
-type MainProps = {
-  offers: Offers;
-}
+const Main = (): JSX.Element => {
+  const {offers} = useAppSelector((state) => state);
 
-const Main = ({offers}: MainProps): JSX.Element => (
-  <div className="page page--gray page--main">
-    <header className="header">
-      <div className="container">
-        <div className="header__wrapper">
-          <div className="header__left">
-            <a className="header__logo-link header__logo-link--active" href="#todo">
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-            </a>
+  const [activeCityIndex, setActiveCityIndex] = useState(0);
+  const offersInActiveCity = offers.filter(
+    (item) => item.city.name === cities[activeCityIndex]
+  );
+  const isOffersMissing = !!offersInActiveCity.length;
+
+  return (
+    <div className="page page--gray page--main">
+      <header className="header">
+        <div className="container">
+          <div className="header__wrapper">
+            <div className="header__left">
+              <a className="header__logo-link header__logo-link--active" href="#todo">
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
+              </a>
+            </div>
+            <nav className="header__nav">
+              <ul className="header__nav-list">
+                <li className="header__nav-item user">
+                  <a className="header__nav-link header__nav-link--profile" href="#todo">
+                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                    </div>
+                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__favorite-count">3</span>
+                  </a>
+                </li>
+                <li className="header__nav-item">
+                  <a className="header__nav-link" href="#todo">
+                    <span className="header__signout">Sign out</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <a className="header__nav-link header__nav-link--profile" href="#todo">
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
-                  </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  <span className="header__favorite-count">3</span>
-                </a>
-              </li>
-              <li className="header__nav-item">
-                <a className="header__nav-link" href="#todo">
-                  <span className="header__signout">Sign out</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
         </div>
-      </div>
-    </header>
-    <main className="page__main page__main--index">
-      <h1 className="visually-hidden">Cities</h1>
-      <div className="tabs">
-        <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#todo">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#todo">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#todo">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active" href="#todo">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#todo">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#todo">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
-        </section>
-      </div>
-      <Cities offers={offers} />
-    </main>
-  </div>
-);
+      </header>
+      <main
+        className={cn(
+          'page__main',
+          'page__main--index',
+          {'page__main--index-empty': !isOffersMissing}
+        )}
+      >
+        <h1 className="visually-hidden">Cities</h1>
+        <CityTabs
+          cities={cities}
+          activeCityIndex={activeCityIndex}
+          onCityTabClick={setActiveCityIndex}
+        />
+        {
+          isOffersMissing ?
+            <Cities offers={offersInActiveCity} /> :
+            <CitiesEmpty city={cities[activeCityIndex]} />
+        }
+      </main>
+    </div>
+  );
+};
 
 export default Main;

@@ -28,7 +28,7 @@ const useMap = (
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, city]);
+  }, [map, mapRef, city]);
 
   return map;
 };
