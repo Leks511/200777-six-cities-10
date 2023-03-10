@@ -5,15 +5,13 @@ type ReviewsListProps = {
   reviews: Reviews;
 };
 
-const ReviewsList = ({reviews}: ReviewsListProps): JSX.Element => {
-  return (
-    <ul className="reviews__list">
-      {
-        reviews.map((reviewData) =>
-          <ReviewsItem key={reviewData.id} review={reviewData} />)
-      }
-    </ul>
-  );
-};
+const ReviewsList = ({reviews}: ReviewsListProps): JSX.Element => (
+  <ul className="reviews__list">
+    {
+      reviews.map((reviewData) =>
+        <ReviewsItem key={reviewData.id} review={reviewData} />)
+    }
+  </ul>
+);
 
 export default ReviewsList;

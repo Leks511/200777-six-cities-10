@@ -20,3 +20,12 @@ export const PlacesRootComponent = {
   CITIES: 'cities',
   ROOM: 'room',
 };
+
+export const cities = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+];

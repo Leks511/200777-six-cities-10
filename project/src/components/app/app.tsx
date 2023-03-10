@@ -1,28 +1,37 @@
+
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import Favorites from '../../pages/favorites/favorites';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
+import {AppRoute, /*AuthorizationStatus*/} from '../../const';
+// import Favorites from '../../pages/favorites/favorites';
 import Main from '../../pages/main/main';
 import Page404 from '../../pages/page-404/page-404';
 import Login from '../../pages/login/login';
-import Room from '../../pages/room/room';
-import PrivateRoute from '../private-route/private-route';
-import {Offers} from '../../types/offer';
+// import Room from '../../pages/room/room';
+// import PrivateRoute from '../private-route/private-route';
+import {createGlobalStyle} from 'styled-components';
 
-type AppProps = {
-  offers: Offers;
-}
+export const GlobalStyle = createGlobalStyle`
+  body,
+  html {
+    margin: 0;
+  }
 
-const App = ({offers}: AppProps): JSX.Element => (
+  html {
+    margin-left: calc(100vw - 100%);
+  }`;
+
+const App = (): JSX.Element => (
   <BrowserRouter>
+    <ScrollToTop />
     <Routes>
       <Route
         path={AppRoute.Root}
         element={
-          <Main offers={offers} />
+          <Main />
         }
       />
       <Route path={AppRoute.Login} element={<Login />} />
-      <Route
+      {/* <Route
         path={AppRoute.Favorites}
         element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
@@ -37,8 +46,15 @@ const App = ({offers}: AppProps): JSX.Element => (
             <Room offers={offers} />
           }
         />
-      </Route>
-      <Route path={AppRoute.NotFoundScreen} element={<Page404 />}/>
+      </Route> */}
+      <Route
+        path={AppRoute.NotFoundScreen}
+        element={<Page404 />}
+      />
+      <Route
+        path="*"
+        element={<Page404/>}
+      />
     </Routes>
   </BrowserRouter>
 );

@@ -9,7 +9,7 @@ type CitiesProps = {
 }
 
 const Cities = ({offers}: CitiesProps): JSX.Element => {
-  const [selectedPlaceId, setSelectedPlaceId] = useState<number>(0);
+  const [selectedPlaceId, setSelectedPlaceId] = useState(0);
 
   const onPlacesListItemHover = (id: number) => setSelectedPlaceId(id);
 
