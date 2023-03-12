@@ -1,16 +1,14 @@
 import { useState } from 'react';
 import cn from 'classnames';
 
-const filters = [
-  'Popular',
-  'Price: low to high',
-  'Price: high to low',
-  'Top rated first'
-];
+type PlacesSorterProps = {
+  activeFilter: string;
+  onFilterVariantClick: (activeFilter: string) => void;
+  sortVariants: object;
+}
 
-const PlacesFilter = (): JSX.Element => {
+const PlacesSorter = ({activeFilter, onFilterVariantClick, sortVariants}: PlacesSorterProps): JSX.Element => {
   const [isOpenedFilter, setIsOpenedFilter] = useState<boolean>(false);
-  const [activeFilter, setActiveFilter] = useState<string>(filters[0]);
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -32,7 +30,7 @@ const PlacesFilter = (): JSX.Element => {
       )}
       >
         {
-          filters.map((variant) => (
+          Object.values(sortVariants).map((variant) => (
             <li
               key={variant}
               tabIndex={0}
@@ -41,7 +39,7 @@ const PlacesFilter = (): JSX.Element => {
                 {'places__option--active': activeFilter === variant}
               )}
               onClick={() => {
-                setActiveFilter(variant);
+                onFilterVariantClick(variant);
                 setIsOpenedFilter(false);
               }}
             >
@@ -55,4 +53,4 @@ const PlacesFilter = (): JSX.Element => {
   );
 };
 
-export default PlacesFilter;
+export default PlacesSorter;

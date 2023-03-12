@@ -6,8 +6,7 @@ import Page404 from '../page-404/page-404';
 import ReviewsSection from '../../components/reviews-section/reviews-section';
 import {reviews} from '../../mocks/reviews';
 import Map from '../../components/map/map';
-import Places from '../../components/places/places';
-import {PlacesRootComponent} from '../../const';
+import PlacesNeighbourhood from '../../components/places-neighbourhood/places-neighbourhood';
 
 type RoomProps = {
   offers: Offers
@@ -167,10 +166,9 @@ const Room = ({offers}: RoomProps): JSX.Element => {
           />
         </section>
         <div className="container">
-          <Places
+          <PlacesNeighbourhood
             offers={neighbourhoodPlaces}
             onPlacesListItemHover={onPlacesListItemHover}
-            rootComponent={PlacesRootComponent.ROOM}
           />
         </div>
       </main>
